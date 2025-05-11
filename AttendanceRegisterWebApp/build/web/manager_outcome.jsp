@@ -43,6 +43,35 @@
                 margin-bottom: 1.5rem;
             }
 
+            .peak-times-container {
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: var(--card-shadow);
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+
+            .peak-time-card {
+                text-align: center;
+                padding: 1rem;
+                min-width: 200px;
+            }
+
+            .peak-time-label {
+                font-weight: 600;
+                color: var(--secondary-color);
+                margin-bottom: 0.5rem;
+            }
+
+            .peak-time-value {
+                font-size: 1.2rem;
+                color: var(--accent-color);
+                font-weight: bold;
+            }
+
             table {
                 width: 100%;
                 border-collapse: collapse;
@@ -101,6 +130,23 @@
     </head>
     <body>
         <h1>Employee Time Tracking Report</h1>
+        
+        <!-- New Peak Times Section -->
+       <div class="peak-times-container">
+    <div class="peak-time-card">
+        <div class="peak-time-label">Most Frequent Time-In</div>
+        <div class="peak-time-value">
+            ${peakTimeIn}
+        </div>
+    </div>
+    <div class="peak-time-card">
+        <div class="peak-time-label">Most Frequent Time-Out</div>
+        <div class="peak-time-value">
+            ${peakTimeOut}
+        </div>
+    </div>
+</div>
+
         <table>
             <thead>
                 <tr>

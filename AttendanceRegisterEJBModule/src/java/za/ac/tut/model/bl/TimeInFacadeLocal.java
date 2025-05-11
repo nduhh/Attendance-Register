@@ -29,5 +29,6 @@ public interface TimeInFacadeLocal {
     List<TimeIn> findRange(int[] range);
 
     int count();
+    TimeIn findMostFrequentTimeIn();
     
 }

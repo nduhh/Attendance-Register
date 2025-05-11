@@ -7,6 +7,7 @@ package za.ac.tut.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -15,7 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import za.ac.tut.entity.Employee;
+import za.ac.tut.entity.TimeIn;
+import za.ac.tut.entity.TimeOut;
 import za.ac.tut.model.bl.EmployeeFacadeLocal;
+import za.ac.tut.model.bl.TimeInFacadeLocal;
+import za.ac.tut.model.bl.TimeOutFacadeLocal;
 
 /**
  *
@@ -23,13 +28,38 @@ import za.ac.tut.model.bl.EmployeeFacadeLocal;
  */
 public class ManagerServlet extends HttpServlet {
     @EJB EmployeeFacadeLocal efl;
+    @EJB
+    private TimeInFacadeLocal timeInFacade;
+    
+    @EJB
+    private TimeOutFacadeLocal timeOutFacade;
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<Employee> employees=efl.findAll();
-        request.setAttribute("employees", employees);
-        RequestDispatcher dispatcher=request.getRequestDispatcher("manager_outcome.jsp");
-        dispatcher.forward(request, response);
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    
+    List<Employee> employees = efl.findAll();
+    TimeIn peakTimeIn = timeInFacade.findMostFrequentTimeIn();
+    TimeOut peakTimeOut = timeOutFacade.findMostFrequentTimeOut();
+    
+    // Format the times or set to "N/A"
+    String formattedPeakTimeIn = "N/A";
+    String formattedPeakTimeOut = "N/A";
+    
+    if (peakTimeIn != null && peakTimeIn.getTimeIn() != null) {
+        formattedPeakTimeIn = timeFormat.format(peakTimeIn.getTimeIn());
     }
+    
+    if (peakTimeOut != null && peakTimeOut.getTimeOut() != null) {
+        formattedPeakTimeOut = timeFormat.format(peakTimeOut.getTimeOut());
+    }
+    
+    request.setAttribute("peakTimeIn", formattedPeakTimeIn);
+    request.setAttribute("peakTimeOut", formattedPeakTimeOut);
+    request.setAttribute("employees", employees);
+    
+    RequestDispatcher dispatcher = request.getRequestDispatcher("manager_outcome.jsp");
+    dispatcher.forward(request, response);
+}
 
 }

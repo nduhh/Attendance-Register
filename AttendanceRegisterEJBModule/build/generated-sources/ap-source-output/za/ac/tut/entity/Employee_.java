@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import za.ac.tut.entity.TimeIn;
 import za.ac.tut.entity.TimeOut;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2025-05-10T23:08:07")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2025-05-11T18:27:25")
 @StaticMetamodel(Employee.class)
 public class Employee_ { 
 

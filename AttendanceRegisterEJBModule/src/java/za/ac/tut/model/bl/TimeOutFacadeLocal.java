@@ -29,5 +29,5 @@ public interface TimeOutFacadeLocal {
     List<TimeOut> findRange(int[] range);
 
     int count();
-    
+    TimeOut findMostFrequentTimeOut();
 }
